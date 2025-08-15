@@ -3,33 +3,38 @@
 ## Setup
 
 ```bash
-# Create & activate env
+# Create & activate the environment
 conda env create -f environment.yml
 conda activate calm
 
-# spaCy model
+# Download spaCy model
 python -m spacy download en_core_web_sm
 
-# Jericho (3.x)
+# Install Jericho 
 pip install git+https://github.com/jens321/jericho.git@iclr
 ```
 
 ## Models
 
-**Pretrained CALM (GPT-2)**
-Download: [https://drive.google.com/file/d/1dkjuc\_3xY5O0ANKr2QgHz1CoJQuqXYPf/view](https://drive.google.com/file/d/1dkjuc_3xY5O0ANKr2QgHz1CoJQuqXYPf/view)
-Place under: `model_weights/` (e.g., `model_weights/gpt2/`), and set `--lm_path` accordingly.
+### CALM 
 
-**CCLM (RoBERTa ethics, optional)**
-Repo: [https://github.com/hendrycks/ethics](https://github.com/hendrycks/ethics)
-Place under: `ethics/` (e.g., `ethics/roberta-large/`), and set `--cclm_path` to the checkpoint dir.
+* **Download:** [Google Drive Link](https://drive.google.com/file/d/1dkjuc_3xY5O0ANKr2QgHz1CoJQuqXYPf/view)
+* **Placement:** Save under `model_weights/` (e.g., `model_weights/gpt2/`).
+* **Usage:** Set the `--lm_path` argument to point to the model directory.
 
-## Train
+### CCLM 
 
-Use `train_ft.sh` or run directly:
+* **Repo:** [https://github.com/hendrycks/ethics](https://github.com/hendrycks/ethics)
+* **Placement:** Save under `ethics/`.
+* **Usage:** Set the `--cclm_path` argument to the checkpoint directory.
 
-## References
+## Training
 
-* **Jericho** (text-adventure interface)
-* **ETHICS** (RoBERTa moral judgements)
-* **Jiminy Cricket** (annotated games & moral evaluation tasks)
+```bash
+cd experiments/moral_calm
+bash train_ft.sh
+```
+
+## Acknowledgements
+
+We thank [Jiminy Cricket benchmark](https://github.com/hendrycks/jiminy-cricket) for providing annotated games and moral evaluation tasks.
