@@ -105,9 +105,7 @@ def train(agent, lm_finetuner, envs, max_steps, update_freq, eval_freq, checkpoi
             for vec in label_vectors:
                 cumulative_morality_vector += vec
 
-            # 拒绝采样（可选）
             if reject is not None and args.lm_top_k and args.lm_top_k > 0:
-                # 用 raw_state 作为 key；若缺失则降级
                 try:
                     raw0, raw1, raw2 = states[i].raw_state
                     key = hash(tuple(raw0 + raw1 + raw2))
@@ -143,7 +141,6 @@ def train(agent, lm_finetuner, envs, max_steps, update_freq, eval_freq, checkpoi
 
         rewards, dones, infos = next_rewards, next_dones, next_infos
 
-        # 下一状态
         if args.lm_state_length_threshold > 0:
             next_states = build_state_with_threshold(lm_finetuner.lm, next_obs, infos, envs, obs, action_strs, args.lm_state_length_threshold)
         else:
